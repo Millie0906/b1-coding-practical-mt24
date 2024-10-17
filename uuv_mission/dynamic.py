@@ -81,6 +81,8 @@ class Mission:
         cave_height = df['cave_height']
         cave_depth = df['cave_depth']
 
+        return cls(reference, cave_height, cave_depth)
+
 
 
 class ClosedLoop:
