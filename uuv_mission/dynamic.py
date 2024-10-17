@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 from .terrain import generate_reference_and_limits
 
 class Submarine:
@@ -103,7 +104,12 @@ class ClosedLoop:
         for t in range(T):
             positions[t] = self.plant.get_position()
             observation_t = self.plant.get_depth()
+            
             # Call your controller here
+            reference_t = mission.reference[t]
+            error_t = reference_t - observation_t
+            actions[t] = self.controller.compute(error_t)
+
             self.plant.transition(actions[t], disturbances[t])
 
         return Trajectory(positions)
