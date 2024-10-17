@@ -20,6 +20,10 @@ class Controller:
         control_action = self.Kp * error + self.Kd * derivative
         self.prev_error = error
         return control_action
+    
+    def reset(self):
+        # Reset the previous error to zero
+        self.prev_error = 0
 
 
 
