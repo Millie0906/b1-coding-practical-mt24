@@ -77,6 +77,7 @@ class Mission:
     @classmethod
     def from_csv(cls, file_name: str):
         # You are required to implement this method
+        # Extract data from corresponding columns of the CSV file
         df = pd.read_csv(file_name)
         reference = df['reference']
         cave_height = df['cave_height']
@@ -106,9 +107,9 @@ class ClosedLoop:
             observation_t = self.plant.get_depth()
             
             # Call your controller here
-            reference_t = mission.reference[t]
-            error_t = reference_t - observation_t
-            actions[t] = self.controller.compute(error_t)
+            reference_t = mission.reference[t]  # Set the reference at time t
+            error_t = reference_t - observation_t # e[t] = r[t]-y[t]
+            actions[t] = self.controller.compute(error_t) # Compute the control action at time t, aiming to minimise error
 
             self.plant.transition(actions[t], disturbances[t])
 
